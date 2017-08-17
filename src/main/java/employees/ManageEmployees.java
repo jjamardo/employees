@@ -16,7 +16,7 @@ public class ManageEmployees {
 	public static void main(String[] args) {
 		try {
 			factory = new AnnotationConfiguration().configure().
-					addAnnotatedClass(Employees.class).buildSessionFactory();
+					addAnnotatedClass(Employee.class).buildSessionFactory();
 		} catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);
@@ -33,7 +33,7 @@ public class ManageEmployees {
 		/* Add and Delete an employee from the database */
 		Integer empID = ME.addEmployee(500000, "Pedro", "Navaja", "M", new Date(), new Date());
 		
-		Employees employee = ME.getEmployee(empID);
+		Employee employee = ME.getEmployee(empID);
 		System.out.println("EmpNo: " + employee.getEmpNo() + " Name: " + employee.getFirstName() + " " + employee.getLastName());
 		ME.deleteEmployee(empID);
 
@@ -46,7 +46,7 @@ public class ManageEmployees {
 		Integer employeeID = null;
 		try {
 			tx = session.beginTransaction();
-			Employees employee = new Employees();
+			Employee employee = new Employee();
 			employee.setEmpNo(empNo);
 			employee.setFirstName(fname);
 			employee.setLastName(lname);
@@ -74,7 +74,7 @@ public class ManageEmployees {
 			Query query = session.createQuery("FROM Employees");
 			List<?> employees = query.list();
 			for (Iterator<?> iterator = employees.iterator(); iterator.hasNext();) {
-				Employees employee = (Employees) iterator.next();
+				Employee employee = (Employee) iterator.next();
 				System.out.println("EmpNo: " + employee.getEmpNo() + " Name: " + employee.getFirstName() + " " + employee.getLastName());
 			}
 			tx.commit();
@@ -87,12 +87,12 @@ public class ManageEmployees {
 		}
 	}
 
-	public Employees getEmployee(Integer empNo) {
+	public Employee getEmployee(Integer empNo) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Employees employee = (Employees) session.get(Employees.class, empNo);
+			Employee employee = (Employee) session.get(Employee.class, empNo);
 			tx.commit();
 			return employee;
 		} catch (HibernateException e) {
@@ -111,7 +111,7 @@ public class ManageEmployees {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Employees employee = (Employees) session.get(Employees.class, empNo);
+			Employee employee = (Employee) session.get(Employee.class, empNo);
 			employee.setGender("F");
 			session.update(employee);
 			tx.commit();
@@ -130,7 +130,7 @@ public class ManageEmployees {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Employees employee = (Employees) session.get(Employees.class, EmployeeID);
+			Employee employee = (Employee) session.get(Employee.class, EmployeeID);
 			session.delete(employee);
 			tx.commit();
 		} catch (HibernateException e) {

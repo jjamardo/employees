@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "employees")
-public class Employees {
+public class Employee {
 	@Id
 	@Column(name = "emp_no")
 	private int empNo;
@@ -27,7 +27,7 @@ public class Employees {
 	@Temporal(TemporalType.DATE)
 	private Date hireDate;
 
-	public Employees(int empNo, String firstName, String lastName, String gender, Date birthDate, Date hireDate) {
+	public Employee(int empNo, String firstName, String lastName, String gender, Date birthDate, Date hireDate) {
 		this.empNo = empNo;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -36,7 +36,7 @@ public class Employees {
 		this.hireDate = hireDate;
 	}
 
-	public Employees() {}
+	public Employee() {}
 
 	public int getEmpNo() {
 		return empNo;
