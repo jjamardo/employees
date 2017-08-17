@@ -15,29 +15,73 @@ public class ManageEmployees {
 
 	public static void main(String[] args) {
 		try {
-			factory = new AnnotationConfiguration().configure().
-					addAnnotatedClass(Employee.class).buildSessionFactory();
+			AnnotationConfiguration conf = new AnnotationConfiguration().configure();
+			conf.addAnnotatedClass(Employee.class);
+			conf.addAnnotatedClass(Department.class);
+			conf.addAnnotatedClass(DeptEmp.class);
+			factory = conf.buildSessionFactory();
 		} catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);
 		}
 		ManageEmployees ME = new ManageEmployees();
 
-		
-		/* List down all the employees */
 		//ME.listEmployees();
 
-		/* Update employee's records */
-		ME.updateEmployee(499842, new Date());
-
-		/* Add and Delete an employee from the database */
-		Integer empID = ME.addEmployee(500000, "Pedro", "Navaja", "M", new Date(), new Date());
+		//ME.updateEmployee(499842, new Date());
 		
-		Employee employee = ME.getEmployee(empID);
-		System.out.println("EmpNo: " + employee.getEmpNo() + " Name: " + employee.getFirstName() + " " + employee.getLastName());
-		ME.deleteEmployee(empID);
+		//Integer empID = ME.addEmployee(500000, "Pedro", "Navaja", "M", new Date(), new Date());
+		//Employee employee = ME.getEmployee(empID);
+		//System.out.println("EmpNo: " + employee.getEmpNo() + " Name: " + employee.getFirstName() + " " + employee.getLastName());
+		//ME.deleteEmployee(empID);
 
+		//ME.listDepartments();
+
+		ME.listDeptEmp();
 	}
+
+	public void listDepartments() {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery("FROM Department");
+			List<?> departments = query.list();
+			for (Iterator<?> iterator = departments.iterator(); iterator.hasNext();) {
+				Department department = (Department) iterator.next();
+				System.out.println("DeptNo: " + department.getDeptNo() + " DeptName: " + department.getDeptName());
+			}
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+
+	public void listDeptEmp() {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery("FROM DeptEmp");
+			List<?> deptemps = query.list();
+			for (Iterator<?> iterator = deptemps.iterator(); iterator.hasNext();) {
+				DeptEmp deptemp = (DeptEmp) iterator.next();
+				System.out.println("DeptNo: " + deptemp.getDeptEmptPK().getDeptNo() + " EmpNp: " + deptemp.getDeptEmptPK().getEmpNo());
+			}
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+
 
 	/* Method to CREATE an employee in the database */
 	public Integer addEmployee(int empNo, String fname, String lname, String gender, Date birthDate, Date hireDate) {
@@ -71,7 +115,7 @@ public class ManageEmployees {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query query = session.createQuery("FROM Employees");
+			Query query = session.createQuery("FROM Employee");
 			List<?> employees = query.list();
 			for (Iterator<?> iterator = employees.iterator(); iterator.hasNext();) {
 				Employee employee = (Employee) iterator.next();
