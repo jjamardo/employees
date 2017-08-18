@@ -1,16 +1,16 @@
 package employees;
 
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Date;
 import java.util.Iterator;
-
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -46,6 +46,24 @@ public class ManageEmployees {
 		//ME.listDeptEmp();
 		
 		ME.Query();
+
+
+		ClassLoader classLoader = ManageEmployees.class.getClassLoader();
+		String file = classLoader.getResource("homer_ascii").getFile();
+		
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(file));
+			String line;
+			while((line = in.readLine()) != null)
+			{
+				System.out.println(line);
+			}
+			in.close();
+		} catch  (Exception e) {
+			System.out.println(e.toString());
+		} finally {
+			
+		}
 	}
 
 	public void Query() {
