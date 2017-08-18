@@ -1,7 +1,10 @@
 package employees;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -26,6 +29,9 @@ public class Employee {
 	@Column(name = "hire_date")
 	@Temporal(TemporalType.DATE)
 	private Date hireDate;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DeptEmp> deptEmps = new ArrayList<DeptEmp>();
 
 	public Employee(int empNo, String firstName, String lastName, String gender, Date birthDate, Date hireDate) {
 		this.empNo = empNo;
@@ -84,6 +90,14 @@ public class Employee {
 
 	public void setHireDate(Date hireDate) {
 		this.hireDate = hireDate;
+	}
+
+	public List<DeptEmp> getDeptEmps() {
+		return deptEmps;
+	}
+
+	public void setDeptEmps(List<DeptEmp> deptEmps) {
+		this.deptEmps = deptEmps;
 	}
 
 }

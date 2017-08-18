@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Embeddable
-public class DeptEmpPK implements Serializable {
+public class DeptEmpId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "emp_no")

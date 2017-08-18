@@ -70,7 +70,7 @@ public class ManageEmployees {
 			List<?> deptemps = query.list();
 			for (Iterator<?> iterator = deptemps.iterator(); iterator.hasNext();) {
 				DeptEmp deptemp = (DeptEmp) iterator.next();
-				System.out.println("DeptNo: " + deptemp.getDeptEmptPK().getDeptNo() + " EmpNp: " + deptemp.getDeptEmptPK().getEmpNo());
+				System.out.println("DeptEmp => EmpNo: " + deptemp.getEmployee().getEmpNo() + " DeptName: " + deptemp.getDepartment().getDeptName());
 			}
 			tx.commit();
 		} catch (HibernateException e) {

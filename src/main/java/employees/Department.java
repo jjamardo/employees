@@ -1,5 +1,8 @@
 package employees;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +14,9 @@ public class Department {
 
 	@Column(name = "dept_name")
 	private String deptName;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DeptEmp> deptEmps = new ArrayList<DeptEmp>();
 
 	public String getDeptNo() {
 		return deptNo;
@@ -26,5 +32,13 @@ public class Department {
 
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
+	}
+
+	public List<DeptEmp> getDeptEmps() {
+		return deptEmps;
+	}
+
+	public void setDeptEmps(List<DeptEmp> deptEmps) {
+		this.deptEmps = deptEmps;
 	}
 }
