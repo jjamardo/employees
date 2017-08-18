@@ -3,6 +3,8 @@ package employees;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Iterator;
 import org.hibernate.Criteria;
@@ -46,13 +48,10 @@ public class ManageEmployees {
 		//ME.listDeptEmp();
 		
 		ME.Query();
-
-
-		ClassLoader classLoader = ManageEmployees.class.getClassLoader();
-		String file = classLoader.getResource("homer_ascii").getFile();
 		
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(file));
+			InputStream file = ManageEmployees.class.getResourceAsStream("/homer_ascii"); 
+			BufferedReader in = new BufferedReader(new InputStreamReader(file));
 			String line;
 			while((line = in.readLine()) != null)
 			{
