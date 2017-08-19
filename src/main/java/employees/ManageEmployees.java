@@ -47,22 +47,21 @@ public class ManageEmployees {
 
 		//ME.listDeptEmp();
 		
-		ME.Query();
+		ME.Query2();
 		
-		try {
-			InputStream file = ManageEmployees.class.getResourceAsStream("/homer_ascii"); 
-			BufferedReader in = new BufferedReader(new InputStreamReader(file));
-			String line;
-			while((line = in.readLine()) != null)
-			{
-				System.out.println(line);
-			}
-			in.close();
-		} catch  (Exception e) {
-			System.out.println(e.toString());
-		} finally {
-			
-		}
+//		try {
+//			InputStream file = ManageEmployees.class.getResourceAsStream("/homer_ascii");
+//			BufferedReader in = new BufferedReader(new InputStreamReader(file));
+//			String line;
+//			while ((line = in.readLine()) != null) {
+//				System.out.println(line);
+//			}
+//			in.close();
+//		} catch (Exception e) {
+//			System.out.println(e.toString());
+//		} finally {
+//
+//		}
 	}
 
 	public void Query() {
@@ -90,6 +89,30 @@ public class ManageEmployees {
 				String deptName = (String) result[2];
 				System.out.println("Name: " + firstName + " " + lastName + " DeptName: " + deptName);
 			}
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+
+	public void Query2() {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			
+			Criteria c = session.createCriteria(Employee.class, "employee");
+			c.createAlias("employee.deptEmps", "deptEmps");
+
+			ProjectionList proList = Projections.projectionList();
+			proList.add(Projections.property("employee.firstName"));
+			c.setProjection(proList);
+			
+			List<?> results = c.list();
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)
