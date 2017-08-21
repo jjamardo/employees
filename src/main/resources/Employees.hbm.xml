@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+  <!-- Employee -->
+  <class name="employees.Employee" table="employees">
+    <id name="empNo" type="int" column="emp_no">
+    </id>
+    <property name="firstName" type="string" column="first_name" />
+    <property name="lastName" type="string" column="last_name" />
+    <property name="gender" type="string" column="gender" />
+    <property name="birthDate" type="date" column="birth_date" />
+    <property name="hireDate" type="date" column="hire_date" />
+    <set name="deptEmps" table="dept_emp" fetch="join">
+      <key column="emp_no" />
+      <one-to-many class="employees.DeptEmp" />
+    </set>
+  </class>
+
+  <!-- Department -->
+  <class name="employees.Department" table="departments">
+    <id name="deptNo" type="string" column="dept_no">
+    </id>
+    <property name="deptName" type="string" column="dept_name" />
+    <set name="deptEmps" table="dept_emp" fetch="join">
+      <key column="dept_name" />
+      <one-to-many class="employees.DeptEmp" />
+    </set>
+  </class>
+
+  <!-- DeptEmp -->
+  <class name="employees.DeptEmp" table="dept_emp">
+    <composite-id class="employees.DeptEmpId" name="deptEmptId">
+      <key-property name="empNo" type="int" column="emp_no" />
+      <key-property name="deptNo" type="string" column="dept_no" />
+    </composite-id>
+    <many-to-one name="employee" class="employees.Employee" lazy="proxy" column="emp_no" insert="false" update="false" />
+    <many-to-one name="department" class="employees.Department" lazy="proxy" column="dept_no" insert="false" update="false" />
+  </class>
+</hibernate-mapping>

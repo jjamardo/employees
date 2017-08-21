@@ -1,18 +1,12 @@
 package employees;
 
 import java.util.List;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Date;
 import java.util.Iterator;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -23,10 +17,7 @@ public class ManageEmployees {
 
 	public static void main(String[] args) {
 		try {
-			AnnotationConfiguration conf = new AnnotationConfiguration().configure();
-			conf.addAnnotatedClass(Employee.class);
-			conf.addAnnotatedClass(Department.class);
-			conf.addAnnotatedClass(DeptEmp.class);
+			Configuration conf = new Configuration().configure();
 			factory = conf.buildSessionFactory();
 		} catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);
