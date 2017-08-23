@@ -23,7 +23,15 @@ public class ManageEmployees {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);
 		}
+
+		listDeptManagers();
 		
+		//listEmployees();
+		
+		//crazyJoin();
+	}
+
+	private static void crazyJoin() {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try {
@@ -44,6 +52,50 @@ public class ManageEmployees {
 				String lastName = (String) result[1];
 				String deptName = (String) result[2];
 				System.out.println("Name: " + firstName + " " + lastName + " DeptName: " + deptName);
+			}
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+
+	private static void listEmployees() {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria c = session.createCriteria(Employee.class);
+			c.setMaxResults(100);
+			List<?> results = c.list();
+			for (Iterator<?> iterator = results.iterator(); iterator.hasNext();) {
+				Employee employee = (Employee)iterator.next();
+				System.out.println("Salaries Size: " + employee.getSalaries().size() + " Titles Size: " + employee.getTitles().size());
+			}
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+
+	private static void listDeptManagers() {
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria c = session.createCriteria(DeptManager.class);
+			c.setMaxResults(100);
+			List<?> results = c.list();
+			for (Iterator<?> iterator = results.iterator(); iterator.hasNext();) {
+				DeptManager manager = (DeptManager)iterator.next();
+				System.out.println("Name: " + manager.getEmployee().getFirstName() + " Department: " + manager.getDepartment().getDeptName());
 			}
 			tx.commit();
 		} catch (HibernateException e) {

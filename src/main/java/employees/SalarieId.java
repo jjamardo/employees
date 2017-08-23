@@ -1,11 +1,12 @@
 package employees;
 
 import java.io.Serializable;
+import java.util.Date;
 
-public class DeptEmpId implements Serializable {
+public class SalarieId implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int empNo;
-	private String deptNo;
+	private Date fromDate;
 
 	public int getEmpNo() {
 		return empNo;
@@ -15,11 +16,11 @@ public class DeptEmpId implements Serializable {
 		this.empNo = empNo;
 	}
 
-	public String getDeptNo() {
-		return deptNo;
+	public Date getFromDate() {
+		return fromDate;
 	}
 
-	public void setDeptNo(String deptNo) {
-		this.deptNo = deptNo;
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
 	}
 }

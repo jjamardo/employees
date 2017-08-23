@@ -2,24 +2,24 @@ package employees;
 
 import java.io.Serializable;
 
-public class DeptEmpId implements Serializable {
+public class DeptManagerId implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int empNo;
-	private String deptNo;
+	private int EmpNo;
+	private String DeptNo;
 
 	public int getEmpNo() {
-		return empNo;
+		return EmpNo;
 	}
 
 	public void setEmpNo(int empNo) {
-		this.empNo = empNo;
+		EmpNo = empNo;
 	}
 
 	public String getDeptNo() {
-		return deptNo;
+		return DeptNo;
 	}
 
 	public void setDeptNo(String deptNo) {
-		this.deptNo = deptNo;
+		DeptNo = deptNo;
 	}
 }

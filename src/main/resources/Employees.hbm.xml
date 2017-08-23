@@ -17,6 +17,18 @@
       <key column="emp_no" />
       <one-to-many class="employees.DeptEmp" />
     </set>
+    <set name="salaries" table="salaries" fetch="join">
+      <key column="emp_no" />
+      <one-to-many class="employees.Salarie" />
+    </set>
+    <set name="titles" table="titles" fetch="join">
+      <key column="emp_no" />
+      <one-to-many class="employees.Title" />
+    </set>
+    <set name="deptManagers" table="dept_manager" fetch="join">
+      <key column="emp_no" />
+      <one-to-many class="employees.DeptManager" />
+    </set>
   </class>
 
   <!-- Department -->
@@ -25,14 +37,47 @@
     </id>
     <property name="deptName" type="string" column="dept_name" />
     <set name="deptEmps" table="dept_emp" fetch="join">
-      <key column="dept_name" />
+      <key column="dept_no" />
       <one-to-many class="employees.DeptEmp" />
+    </set>
+    <set name="deptManagers" table="dept_emp" fetch="join">
+      <key column="dept_no" />
+      <one-to-many class="employees.DeptManager" />
     </set>
   </class>
 
   <!-- DeptEmp -->
   <class name="employees.DeptEmp" table="dept_emp">
     <composite-id class="employees.DeptEmpId" name="deptEmptId">
+      <key-property name="empNo" type="int" column="emp_no" />
+      <key-property name="deptNo" type="string" column="dept_no" />
+    </composite-id>
+    <many-to-one name="employee" class="employees.Employee" lazy="proxy" column="emp_no" insert="false" update="false" />
+    <many-to-one name="department" class="employees.Department" lazy="proxy" column="dept_no" insert="false" update="false" />
+  </class>
+
+  <!-- Salaries -->
+  <class name="employees.Salarie" table="salaries">
+    <composite-id class="employees.SalarieId" name="salarieId">
+      <key-property name="empNo" type="int" column="emp_no" />
+      <key-property name="fromDate" type="date" column="from_date" />
+    </composite-id>
+    <many-to-one name="employee" class="employees.Employee" lazy="proxy" column="emp_no" insert="false" update="false" />
+  </class>
+
+  <!-- Titles -->
+  <class name="employees.Title" table="titles">
+    <composite-id class="employees.TitleId" name="titleId">
+      <key-property name="empNo" type="int" column="emp_no" />
+      <key-property name="title" type="string" column="title" />
+      <key-property name="fromDate" type="date" column="from_date" />
+    </composite-id>
+    <many-to-one name="employee" class="employees.Employee" lazy="proxy" column="emp_no" insert="false" update="false" />
+  </class>
+
+  <!-- DeptManager -->
+  <class name="employees.DeptManager" table="dept_manager">
+    <composite-id class="employees.DeptManagerId" name="deptManagerId">
       <key-property name="empNo" type="int" column="emp_no" />
       <key-property name="deptNo" type="string" column="dept_no" />
     </composite-id>

@@ -1,20 +1,20 @@
 package employees;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Employee {
 	private int empNo;
-
 	private String firstName;
 	private String lastName;
 	private String gender;
 	private Date birthDate;
 	private Date hireDate;
-    private List<DeptEmp> deptEmps = new ArrayList<DeptEmp>();
-
-	public Employee() {}
+    private Set<DeptEmp> deptEmps = new HashSet<DeptEmp>();
+    private Set<Salarie> salaries = new HashSet<Salarie>();
+    private Set<Title> titles = new HashSet<Title>();
+    private Set<DeptManager> deptManagers = new HashSet<DeptManager>();
 
 	public int getEmpNo() {
 		return empNo;
@@ -64,12 +64,36 @@ public class Employee {
 		this.hireDate = hireDate;
 	}
 
-	public List<DeptEmp> getDeptEmps() {
+	public Set<DeptEmp> getDeptEmps() {
 		return deptEmps;
 	}
 
-	public void setDeptEmps(List<DeptEmp> deptEmps) {
+	public void setDeptEmps(Set<DeptEmp> deptEmps) {
 		this.deptEmps = deptEmps;
+	}
+
+	public Set<Salarie> getSalaries() {
+		return salaries;
+	}
+
+	public void setSalaries(Set<Salarie> salaries) {
+		this.salaries = salaries;
+	}
+
+	public Set<Title> getTitles() {
+		return titles;
+	}
+
+	public void setTitles(Set<Title> titles) {
+		this.titles = titles;
+	}
+
+	public Set<DeptManager> getDeptManagers() {
+		return deptManagers;
+	}
+
+	public void setDeptManagers(Set<DeptManager> deptManagers) {
+		this.deptManagers = deptManagers;
 	}
 
 }

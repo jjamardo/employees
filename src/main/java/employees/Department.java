@@ -1,12 +1,13 @@
 package employees;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Department {
 	private String deptNo;
 	private String deptName;
-    private List<DeptEmp> deptEmps = new ArrayList<DeptEmp>();
+    private Set<DeptEmp> deptEmps = new HashSet<DeptEmp>();
+    private Set<DeptManager> deptManagers = new HashSet<DeptManager>();
 
 	public String getDeptNo() {
 		return deptNo;
@@ -24,11 +25,19 @@ public class Department {
 		this.deptName = deptName;
 	}
 
-	public List<DeptEmp> getDeptEmps() {
+	public Set<DeptEmp> getDeptEmps() {
 		return deptEmps;
 	}
 
-	public void setDeptEmps(List<DeptEmp> deptEmps) {
+	public void setDeptEmps(Set<DeptEmp> deptEmps) {
 		this.deptEmps = deptEmps;
+	}
+
+	public Set<DeptManager> getDeptManagers() {
+		return deptManagers;
+	}
+
+	public void setDeptManagers(Set<DeptManager> deptManagers) {
+		this.deptManagers = deptManagers;
 	}
 }
