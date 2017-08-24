@@ -3,7 +3,7 @@ package employees;
 import java.io.Serializable;
 import java.util.Date;
 
-public class SalarieId implements Serializable {
+public class SalaryId implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int empNo;
 	private Date fromDate;

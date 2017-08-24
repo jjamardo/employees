@@ -12,7 +12,7 @@ public class Employee {
 	private Date birthDate;
 	private Date hireDate;
     private Set<DeptEmp> deptEmps = new HashSet<DeptEmp>();
-    private Set<Salarie> salaries = new HashSet<Salarie>();
+    private Set<Salary> salaries = new HashSet<Salary>();
     private Set<Title> titles = new HashSet<Title>();
     private Set<DeptManager> deptManagers = new HashSet<DeptManager>();
 
@@ -72,11 +72,11 @@ public class Employee {
 		this.deptEmps = deptEmps;
 	}
 
-	public Set<Salarie> getSalaries() {
+	public Set<Salary> getSalaries() {
 		return salaries;
 	}
 
-	public void setSalaries(Set<Salarie> salaries) {
+	public void setSalaries(Set<Salary> salaries) {
 		this.salaries = salaries;
 	}
 

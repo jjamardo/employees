@@ -19,7 +19,7 @@
     </set>
     <set name="salaries" table="salaries" fetch="join">
       <key column="emp_no" />
-      <one-to-many class="employees.Salarie" />
+      <one-to-many class="employees.Salary" />
     </set>
     <set name="titles" table="titles" fetch="join">
       <key column="emp_no" />
@@ -57,22 +57,25 @@
   </class>
 
   <!-- Salaries -->
-  <class name="employees.Salarie" table="salaries">
-    <composite-id class="employees.SalarieId" name="salarieId">
+  <class name="employees.Salary" table="salaries">
+    <composite-id class="employees.SalaryId" name="salaryId">
       <key-property name="empNo" type="int" column="emp_no" />
       <key-property name="fromDate" type="date" column="from_date" />
     </composite-id>
     <many-to-one name="employee" class="employees.Employee" lazy="proxy" column="emp_no" insert="false" update="false" />
+    <property name="salary" type="int" column="salary" />
+    <property name="toDate" type="date" column="to_date" />
   </class>
 
   <!-- Titles -->
   <class name="employees.Title" table="titles">
-    <composite-id class="employees.TitleId" name="titleId">
+    <composite-id  class="employees.TitleId" name="titleId">
       <key-property name="empNo" type="int" column="emp_no" />
       <key-property name="title" type="string" column="title" />
       <key-property name="fromDate" type="date" column="from_date" />
     </composite-id>
     <many-to-one name="employee" class="employees.Employee" lazy="proxy" column="emp_no" insert="false" update="false" />
+    <property name="toDate" type="date" column="to_date" />
   </class>
 
   <!-- DeptManager -->
@@ -83,5 +86,7 @@
     </composite-id>
     <many-to-one name="employee" class="employees.Employee" lazy="proxy" column="emp_no" insert="false" update="false" />
     <many-to-one name="department" class="employees.Department" lazy="proxy" column="dept_no" insert="false" update="false" />
+    <property name="fromDate" type="date" column="from_date" />
+    <property name="toDate" type="date" column="to_date" />
   </class>
 </hibernate-mapping>

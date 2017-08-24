@@ -1,9 +1,13 @@
 package employees;
 
+import java.util.Date;
+
 public class DeptManager {
 	private DeptManagerId deptManagerId;
 	private Employee employee;
 	private Department department;
+	private Date fromDate;
+	private Date toDate;
 
 	public DeptManagerId getDeptManagerId() {
 		return deptManagerId;
@@ -27,5 +31,21 @@ public class DeptManager {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	public Date getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public Date getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
 	}
 }
