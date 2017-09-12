@@ -13,6 +13,7 @@ public class ManagersQuery implements Queryable {
 		/** Prints all active managers */
 		Criteria c = session.createCriteria(DeptManager.class);
 		c.add(Restrictions.eq("toDate", QueryUtils.toThePresent()));
+		c.setMaxResults(1);
 		List<?> results = c.list();
 		for (Iterator<?> iterator = results.iterator(); iterator.hasNext();) {
 			DeptManager manager = (DeptManager) iterator.next();

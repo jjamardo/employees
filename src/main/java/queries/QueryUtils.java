@@ -18,4 +18,17 @@ public class QueryUtils {
 		}
 		return toThePresent;
 	}
+
+	public static Date DateParse(String s) {
+		Date date = null;
+		try {
+			DateFormat format = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+			date = format.parse(s);
+		}
+		catch (Exception e) {
+			System.out.println("FATAL: Can't parse date!");
+			System.exit(0);
+		}
+		return date;
+	}
 }

@@ -19,14 +19,19 @@ public class ManageEmployees {
 			throw new ExceptionInInitializerError(ex);
 		}
 
-		Queryable query = new ManagersQuery();
-		transactionalQuery(query);
+//		Queryable query = new ManagersQuery();
+//		transactionalQuery(query);
 
-		Queryable query2 = new EngineersResearchersQuery();
+		Queryable query2 = new EngineersHiredBefore1990();
 		transactionalQuery(query2);
 
-		Queryable query3 = new MaxSalaryPerEmployeeQuery();
-		transactionalQuery(query3);
+//		Queryable query3 = new ResearchersWhoEarnLessThanQuery();
+//		transactionalQuery(query3);
+		
+//		Queryable query4 = new ListEmployeesQuery();
+//		transactionalQuery(query4);
+		
+		int x = 1;	
 	}
 
 	private static void transactionalQuery(Queryable query) {
